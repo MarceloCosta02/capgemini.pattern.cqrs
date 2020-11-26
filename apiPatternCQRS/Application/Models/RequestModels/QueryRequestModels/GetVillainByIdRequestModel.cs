@@ -10,5 +10,10 @@ namespace apiPatternCQRS.WebApi.Application.Models.RequestModels.QueryRequestMod
     public class GetVillainByIdRequestModel : IRequest<GetVillainByIdResponseModel>
     {
         public int VillainId { get; set; }
+
+        public GetVillainByIdRequestModel(int villainId)
+        {
+            VillainId = villainId;
+        }
     }
 }
