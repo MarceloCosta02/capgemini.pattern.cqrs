@@ -1,6 +1,5 @@
 ﻿using apiPatternCQRS.WebApi.Application.Models.RequestModels.CommandRequestModels;
 using apiPatternCQRS.WebApi.Application.Models.RequestModels.QueryRequestModels;
-using apiPatternCQRS.WebApi.Application.Models.ResponseModels.CommandResponseModel;
 using apiPatternCQRS.WebApi.Application.Models.ResponseModels.QueryResponseModel;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace apiPatternCQRS.WebApi.Repositories.Interfaces
         /// </summary>
         /// <param name="villain"></param>
         /// <returns></returns>
-        Task<InsertVillainResponseModel> Insert(InsertVillainRequestModel villain);
+        void Insert(InsertVillainRequestModel villain);
 
         /// <summary>
         /// Recupera um vilão pelo id

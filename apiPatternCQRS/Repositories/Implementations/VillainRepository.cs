@@ -1,6 +1,5 @@
 ﻿using apiPatternCQRS.WebApi.Application.Models.RequestModels.CommandRequestModels;
 using apiPatternCQRS.WebApi.Application.Models.RequestModels.QueryRequestModels;
-using apiPatternCQRS.WebApi.Application.Models.ResponseModels.CommandResponseModel;
 using apiPatternCQRS.WebApi.Application.Models.ResponseModels.QueryResponseModel;
 using apiPatternCQRS.WebApi.Repositories.Interfaces;
 using Dapper;
@@ -26,23 +25,21 @@ namespace apiPatternCQRS.WebApi.Repositories.Implementations
         /// </summary>
         /// <param name="villain"></param>
         /// <returns></returns>
-        public async Task<InsertVillainResponseModel> Insert(InsertVillainRequestModel villain)
+        public void Insert(InsertVillainRequestModel villain)
         {
             var connection = new SqlConnection(_connectionString);
 
             var query = "insert into villain (villain_id, super_villain_name, super_power, weapon, birth_date) " +
                             "values (@villain_id, @super_villain_name, @super_power, @weapon, @birth_date)";
 
-            var result = await connection.ExecuteAsync(query, new 
+            var result = connection.Execute(query, new 
             { 
                 villain_id = villain.VillainId,
                 super_villain_name = villain.SuperVillainName,
                 super_power = villain.SuperPower,
                 weapon = villain.Weapon,
                 birth_date = villain.BirthDate
-            });
-
-            return new InsertVillainResponseModel { IsSuccess = true };
+            });         
         }
 
         /// <summary>
@@ -54,12 +51,12 @@ namespace apiPatternCQRS.WebApi.Repositories.Implementations
         {
             var connection = new SqlConnection(_connectionString);
 
-            var query = "select villain_id, super_villain_name, super_power, weapon, birth_date from villain " +
-                            "where villain_id = @villain_id";
+            var query = "select villainid, supervillainname, superpower, weapon, birthdate from villain " +
+                            "where villainid = @villainid";
             
-            var result = await connection.QueryAsync<GetVillainByIdResponseModel>(query, new { villain_id = villain.VillainId });
+            var result = await connection.QueryAsync<GetVillainByIdResponseModel>(query, new { villainid = villain.VillainId });
 
-            return (GetVillainByIdResponseModel)result;
+            return result.FirstOrDefault();
         }
     }
 }
