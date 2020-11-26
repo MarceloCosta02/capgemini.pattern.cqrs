@@ -13,6 +13,15 @@ namespace apiPatternCQRS.WebApi.Application.Models.RequestModels.CommandRequestM
         public string SuperVillainName { get; set; }
         public string SuperPower { get; set; }
         public string Weapon { get; set; }
-        public DateTime BirthDate { get; set; }        
+        public DateTime BirthDate { get; set; }
+
+        public InsertVillainRequestModel(int villainId, string superVillainName, string superPower, string weapon, DateTime birthDate)
+        {
+            VillainId = villainId;
+            SuperVillainName = superVillainName;
+            SuperPower = superPower;
+            Weapon = weapon;
+            BirthDate = birthDate;
+        }
     }
 }
