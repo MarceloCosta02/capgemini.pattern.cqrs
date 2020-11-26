@@ -23,6 +23,6 @@ namespace apiPatternCQRS.WebApi.Application.Handlers.QueryHandlers
         {
             var response = await _villainRepository.GetById(request);
             return response;
-        }       
+        }        
     }
 }

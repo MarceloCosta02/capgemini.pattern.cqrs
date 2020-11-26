@@ -1,5 +1,4 @@
 ﻿using apiPatternCQRS.WebApi.Application.Models.RequestModels.CommandRequestModels;
-using apiPatternCQRS.WebApi.Application.Models.ResponseModels.CommandResponseModel;
 using apiPatternCQRS.WebApi.Repositories.Interfaces;
 using MediatR;
 using System;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace apiPatternCQRS.WebApi.Application.Handlers.CommandHandlers
 {
-    public class InsertVillainCommandHandler : IRequestHandler<InsertVillainRequestModel, InsertVillainResponseModel>
+    public class InsertVillainCommandHandler : IRequestHandler<InsertVillainRequestModel, string>
     {
         private readonly IVillainRepository _villainRepository;
         public InsertVillainCommandHandler(IVillainRepository villainRepository)
@@ -18,10 +17,10 @@ namespace apiPatternCQRS.WebApi.Application.Handlers.CommandHandlers
             _villainRepository = villainRepository;
         }
 
-        public async Task<InsertVillainResponseModel> Handle(InsertVillainRequestModel request, CancellationToken cancellationToken)
+        public Task<string> Handle(InsertVillainRequestModel request, CancellationToken cancellationToken)
         {
-            var response = await _villainRepository.Insert(request);
-            return response;
+            _villainRepository.Insert(request);
+            return Task.FromResult("O Vilão foi inserido com sucesso");
         }      
     }
 }
