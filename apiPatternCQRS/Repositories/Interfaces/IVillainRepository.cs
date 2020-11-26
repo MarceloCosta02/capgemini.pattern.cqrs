@@ -16,13 +16,13 @@ namespace apiPatternCQRS.WebApi.Repositories.Interfaces
         /// </summary>
         /// <param name="villain"></param>
         /// <returns></returns>
-        InsertVillainResponseModel Insert(InsertVillainRequestModel villain);
+        Task<InsertVillainResponseModel> Insert(InsertVillainRequestModel villain);
 
         /// <summary>
         /// Recupera um vilão pelo id
         /// </summary>
         /// <param name="villain"></param>
         /// <returns></returns>
-        IEnumerable<GetVillainByIdResponseModel> GetById(GetVillainByIdRequestModel villain);
+        Task<GetVillainByIdResponseModel> GetById(GetVillainByIdRequestModel villain);
     }
 }

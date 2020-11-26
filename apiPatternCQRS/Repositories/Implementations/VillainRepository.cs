@@ -26,14 +26,14 @@ namespace apiPatternCQRS.WebApi.Repositories.Implementations
         /// </summary>
         /// <param name="villain"></param>
         /// <returns></returns>
-        public InsertVillainResponseModel Insert(InsertVillainRequestModel villain)
+        public async Task<InsertVillainResponseModel> Insert(InsertVillainRequestModel villain)
         {
             var connection = new SqlConnection(_connectionString);
 
             var query = "insert into villain (villain_id, super_villain_name, super_power, weapon, birth_date) " +
                             "values (@villain_id, @super_villain_name, @super_power, @weapon, @birth_date)";
 
-            var result = connection.Execute(query, new 
+            var result = await connection.ExecuteAsync(query, new 
             { 
                 villain_id = villain.VillainId,
                 super_villain_name = villain.SuperVillainName,
@@ -50,16 +50,16 @@ namespace apiPatternCQRS.WebApi.Repositories.Implementations
         /// </summary>
         /// <param name="villain"></param>
         /// <returns></returns>
-        public IEnumerable<GetVillainByIdResponseModel> GetById(GetVillainByIdRequestModel villain)
+        public async Task<GetVillainByIdResponseModel> GetById(GetVillainByIdRequestModel villain)
         {
             var connection = new SqlConnection(_connectionString);
 
             var query = "select villain_id, super_villain_name, super_power, weapon, birth_date from villain " +
                             "where villain_id = @villain_id";
             
-            var result = connection.Query<GetVillainByIdResponseModel>(query, new { villain_id = villain.VillainId });
+            var result = await connection.QueryAsync<GetVillainByIdResponseModel>(query, new { villain_id = villain.VillainId });
 
-            return result;
+            return (GetVillainByIdResponseModel)result;
         }
     }
 }
