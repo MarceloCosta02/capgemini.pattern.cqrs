@@ -9,6 +9,6 @@ namespace apiPatternCQRS.WebApi.Application.Interfaces.IQueryHandlers
 {
     public interface IGetVillainByIdQueryHandler
     {
-        GetVillainByIdResponseModel GetVillainById(GetVillainByIdRequestModel requestModel);
+        Task<GetVillainByIdResponseModel> GetVillainById(GetVillainByIdRequestModel requestModel);
     }
 }
