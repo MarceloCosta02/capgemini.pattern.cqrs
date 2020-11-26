@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using MediatR;
 using apiPatternCQRS.WebApi.Repositories.Interfaces;
 using apiPatternCQRS.WebApi.Repositories.Implementations;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace apiPatternCQRS
 {
@@ -29,9 +30,11 @@ namespace apiPatternCQRS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddMediatR(typeof(Startup));
             services.AddSingleton<IVillainRepository, VillainRepository>();
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +55,17 @@ namespace apiPatternCQRS
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+            });
+
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+            app.UseRewriter(option);
         }
     }
 }
