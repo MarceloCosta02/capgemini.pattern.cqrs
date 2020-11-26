@@ -36,13 +36,14 @@ namespace apiPatternCQRS.Controllers
 
         }
 
-        [HttpGet]
-        public IActionResult GetVillainById([FromBody] GetVillainByIdRequestModel request)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVillainById(int id)
         {
             try
             {
-                var response = _mediator.Send(request);
-                return Created(string.Empty, response);
+                GetVillainByIdRequestModel villainId = new GetVillainByIdRequestModel(id);
+                var response = await _mediator.Send(villainId);
+                return Ok(response);
             }
             catch (Exception ex)
             {
