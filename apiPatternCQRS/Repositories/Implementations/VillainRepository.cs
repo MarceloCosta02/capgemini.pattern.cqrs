@@ -29,16 +29,16 @@ namespace apiPatternCQRS.WebApi.Repositories.Implementations
         {
             var connection = new SqlConnection(_connectionString);
 
-            var query = "insert into villain (villain_id, super_villain_name, super_power, weapon, birth_date) " +
-                            "values (@villain_id, @super_villain_name, @super_power, @weapon, @birth_date)";
+            var query = "insert into villain (villainid, supervillainname, superpower, weapon, birthdate) " +
+                            "values (@villainid, @supervillainname, @superpower, @weapon, @birthdate)";
 
             var result = connection.Execute(query, new 
             { 
-                villain_id = villain.VillainId,
-                super_villain_name = villain.SuperVillainName,
-                super_power = villain.SuperPower,
+                villainid = villain.VillainId,
+                supervillainname = villain.SuperVillainName,
+                superpower = villain.SuperPower,
                 weapon = villain.Weapon,
-                birth_date = villain.BirthDate
+                birthdate = villain.BirthDate
             });         
         }
 
